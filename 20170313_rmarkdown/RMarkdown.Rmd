@@ -18,24 +18,34 @@ knitr::opts_chunk$set(echo = TRUE)
 install.packages("rmarkdown")
 ```
 
-## Syntax
-
+# Syntax
+## Headers
 ```
 # Header 1
+```
+# Header 1
+```
 ## Header 2
+```
+## Header 2
+```
 ### Header 3
+```
+### Header 3
+```
 #### Header 4
+```
+#### Header 4
+```
 ##### Header 5
+```
+##### Header 5
+```
 ###### Header 6
 ```
-
-# Header 1
-## Header 2
-### Header 3
-#### Header 4
-##### Header 5
 ###### Header 6
 
+## Text Styles
 ```
 > block quote
 ```
@@ -56,11 +66,13 @@ inline equation ($LaTeX$): $A = \pi*r^{2}$
 ```
 inline equation ($LaTeX$): $A = \pi*r^{2}$
 
+## Images
 ```
 image: ![](https://s-media-cache-ak0.pinimg.com/originals/1d/96/13/1d96138537ae93c28554fa623f56a527.gif)
 ```
 image: ![](https://s-media-cache-ak0.pinimg.com/originals/1d/96/13/1d96138537ae93c28554fa623f56a527.gif)
 
+## Lists
 ```
 * unordered list
 * number 2
@@ -80,7 +92,9 @@ image: ![](https://s-media-cache-ak0.pinimg.com/originals/1d/96/13/1d96138537ae9
 1. ordered list
 2. item 2
     + sub-item (four spaces)
-    
+
+
+## Code    
 ```
 Here's a piece of `inline code` to look at.
 ```
@@ -111,7 +125,7 @@ summary(cars)
 summary(cars)
 ```
 
-
+## Plots
 ```{r}
 # Throw some plots in:
 library(ggplot2)
