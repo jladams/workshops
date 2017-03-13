@@ -1,0 +1,18 @@
+---
+title: "Data Visualization"
+subtitle: "In the Library and Around Campus"
+author: "James L. Adams</br>Data and Visualization Librarian"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+options(warn = -1)
+```
+
+## Python Slide!
+```{python echo = TRUE}
+x = "Hello there!!"
+print(x)
+```
+
