@@ -1,0 +1,52 @@
+---
+title: "RMarkdown"
+author: "James L. Adams"
+date: "3/10/2017"
+runtime: shiny
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(shiny)
+library(leaflet)
+library(jsonlite)
+
+geojson <- reactivePoll(5000, session,
+                        checkFunc = function(){
+                          Sys.time()
+                        },
+                        valueFunc = function(){
+                            readLines("https://wanderdrone.appspot.com/", warn = FALSE) %>%
+                              paste(collapse = "\n") %>%
+                              fromJSON(simplifyVector = FALSE)
+                        }
+                      )
+```
+
+## R Markdown
+
+
+```{r live}
+
+output$leaflet <- renderLeaflet({
+  leaflet() %>%
+    addTiles()
+})
+
+observe({
+  leafletProxy("leaflet") %>%
+    clearGeoJSON() %>%
+    addGeoJSON(geojson()) %>%
+    fitBounds(lng1 = max(geojson()$geometry$coordinates[[1]]) + 5,
+              lat1 = max(geojson()$geometry$coordinates[[2]]) + 5,
+            lng2 = min(geojson()$geometry$coordinates[[1]]) - 5,
+            lat2 = min(geojson()$geometry$coordinates[[2]]) - 5)
+})
+
+leafletOutput("leaflet")
+
+```
+
