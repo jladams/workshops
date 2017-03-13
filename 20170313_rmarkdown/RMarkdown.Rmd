@@ -4,8 +4,8 @@ author: "James L. Adams"
 date: "3/10/2017"
 output:
   html_document: default
-  word_document: default
   pdf_document: default
+  word_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -20,68 +20,118 @@ install.packages("rmarkdown")
 
 # Syntax
 ## Headers
+
+# Header 1
+
 ```
 # Header 1
 ```
-# Header 1
+
+## Header 2
+
 ```
 ## Header 2
 ```
-## Header 2
+
+### Header 3
+
 ```
 ### Header 3
 ```
-### Header 3
+
+#### Header 4
+
 ```
 #### Header 4
 ```
-#### Header 4
+
+##### Header 5
+
 ```
 ##### Header 5
 ```
-##### Header 5
+
+###### Header 6
+
 ```
 ###### Header 6
 ```
-###### Header 6
 
 ## Text Styles
+
+> block quote
+
 ```
 > block quote
 ```
-> block quote
+
+**Bold**
+
+```
+**Bold**
+```
+
+*Italic*
+
+```
+*Italic*
+```
+
+endash: --
 
 ```
 endash: --
 ```
-endash: --
+
+emdash: ---
 
 ```
 emdash: ---
 ```
-emdash: ---
+
+inline equation (using $LaTeX$): $A = \pi*r^{2}$
 
 ```
-inline equation ($LaTeX$): $A = \pi*r^{2}$
+inline equation (using $LaTeX$): $A = \pi*r^{2}$
 ```
-inline equation ($LaTeX$): $A = \pi*r^{2}$
+
+Subscripts ~Hello!~ and superscripts ^Hello!^ are easy.
+
+```
+Subscripts ~Hello!~ and superscripts ^Hello!^ are easy.
+```
+
+[Here's a link](https://www.google.com)
+
+```
+[Here's a link](https://www.google.com)
+```
 
 ## Images
-```
-image: ![](https://s-media-cache-ak0.pinimg.com/originals/1d/96/13/1d96138537ae93c28554fa623f56a527.gif)
-```
+
 image: ![](https://s-media-cache-ak0.pinimg.com/originals/1d/96/13/1d96138537ae93c28554fa623f56a527.gif)
 
+```
+image: ![](https://s-media-cache-ak0.pinimg.com/originals/1d/96/13/1d96138537ae93c28554fa623f56a527.gif)
+```
+
 ## Lists
+
+* unordered list
+* number 2
+    + sub-item (four spaces)
+
+
 ```
 * unordered list
 * number 2
   + sub-item (four spaces)
 ```
 
-* unordered list
-* number 2
+1. ordered list
+2. item 2
     + sub-item (four spaces)
+
 
 ```
 1. ordered list
@@ -89,17 +139,33 @@ image: ![](https://s-media-cache-ak0.pinimg.com/originals/1d/96/13/1d96138537ae9
     + sub-item (four spaces)
 ```
 
-1. ordered list
-2. item 2
-    + sub-item (four spaces)
+## Tables
+
+The default rendering is as you would see in the R terminal:
+```{r}
+head(mtcars)
+```
+
+
+You can use other styles, including interactive tables when knitting to HTML. Here's one using a knitr kable:
+```{r}
+knitr::kable(head(mtcars))
+```
 
 
 ## Code    
+
+Here's a piece of `inline code` to look at.
+
 ```
 Here's a piece of `inline code` to look at.
 ```
 
-Here's a piece of `inline code` to look at.
+Here is a piece of inline R code: `r sum(3, 7)`
+
+```{r eval = FALSE}
+Here is a piece of inline R code: `r sum(3, 7)`
+```
 
 
     ```
@@ -166,3 +232,46 @@ ggplot(df, aes(x = X1, y = X2)) +
   geom_point() +
   geom_smooth(method = "lm")
 ```
+
+
+## Other Languages
+Code chunks can be in other languages including:
+
+* Python
+* SQL
+* Bash
+* Rcpp
+* Stan
+* JavaScript
+* CSS
+
+### Python
+```{python}
+x = 'hello, world!'
+print(x.split(' '))
+```
+
+
+### Bash
+```{bash}
+pwd
+```
+
+
+## Footnotes
+
+Here's a footnote,[^1] and a second one. [^longnamednote]
+
+[^1]: Here's the first footnote.
+
+[^longnamednote]: Here's the other.
+
+```
+Here's a footnote,[^1] and a second one. [^longnamednote]
+
+[^1]: Here's the first footnote.
+
+[^longnamednote]: Here's the other.
+```
+
+
