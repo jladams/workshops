@@ -6,14 +6,29 @@ runtime: shiny
 output: html_document
 ---
 
+## YAML Header
+```
+---
+title: "Shiny Example"
+author: "James L. Adams"
+date: "3/10/2017"
+runtime: shiny
+output: html_document
+---
+```
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+```
 
+## Live Data Source
+```{r, warning=FALSE}
+# Load necessary libraries
 library(shiny)
 library(leaflet)
 library(jsonlite)
 
+# Get Data every ~5 seconds
 geojson <- reactivePoll(5000, session,
                         checkFunc = function(){
                           Sys.time()
@@ -26,16 +41,16 @@ geojson <- reactivePoll(5000, session,
                       )
 ```
 
-## R Markdown
-
-
+## Create and Update Map
 ```{r live}
 
+# Create map
 output$leaflet <- renderLeaflet({
   leaflet() %>%
     addTiles()
 })
 
+# Update map when data updates
 observe({
   leafletProxy("leaflet") %>%
     clearGeoJSON() %>%
@@ -50,3 +65,4 @@ leafletOutput("leaflet")
 
 ```
 
+\nbsp
