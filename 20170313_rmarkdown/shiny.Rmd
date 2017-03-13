@@ -1,5 +1,5 @@
 ---
-title: "RMarkdown"
+title: "Shiny Example"
 author: "James L. Adams"
 date: "3/10/2017"
 runtime: shiny

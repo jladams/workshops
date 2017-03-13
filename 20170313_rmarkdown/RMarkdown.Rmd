@@ -2,62 +2,153 @@
 title: "RMarkdown"
 author: "James L. Adams"
 date: "3/10/2017"
-runtime: shiny
-output: html_document
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
 ---
-
-```
----
-title: "RMarkdown"
-author: "James L. Adams"
-date: "3/10/2017"
-output: html_document
----
-```
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-
-library(shiny)
-library(leaflet)
-library(jsonlite)
-
-geojson <- reactivePoll(5000, session,
-                        checkFunc = function(){
-                          Sys.time()
-                        },
-                        valueFunc = function(){
-                            readLines("https://wanderdrone.appspot.com/", warn = FALSE) %>%
-                              paste(collapse = "\n") %>%
-                              fromJSON(simplifyVector = FALSE)
-                        }
-                      )
 ```
 
-## R Markdown
+## Installation
+
+```{r installation, eval=FALSE}
+install.packages("rmarkdown")
+```
+
+## Syntax
+
+```
+# Header 1
+## Header 2
+### Header 3
+#### Header 4
+##### Header 5
+###### Header 6
+```
+
+# Header 1
+## Header 2
+### Header 3
+#### Header 4
+##### Header 5
+###### Header 6
+
+```
+> block quote
+```
+> block quote
+
+```
+endash: --
+```
+endash: --
+
+```
+emdash: ---
+```
+emdash: ---
+
+```
+inline equation ($LaTeX$): $A = \pi*r^{2}$
+```
+inline equation ($LaTeX$): $A = \pi*r^{2}$
+
+```
+image: ![](https://s-media-cache-ak0.pinimg.com/originals/1d/96/13/1d96138537ae93c28554fa623f56a527.gif)
+```
+image: ![](https://s-media-cache-ak0.pinimg.com/originals/1d/96/13/1d96138537ae93c28554fa623f56a527.gif)
+
+```
+* unordered list
+* number 2
+  + sub-item (four spaces)
+```
+
+* unordered list
+* number 2
+    + sub-item (four spaces)
+
+```
+1. ordered list
+2. item 2
+    + sub-item (four spaces)
+```
+
+1. ordered list
+2. item 2
+    + sub-item (four spaces)
+    
+```
+Here's a piece of `inline code` to look at.
+```
+
+Here's a piece of `inline code` to look at.
 
 
-```{r cars}
+    ```
+    Code chunks are delineated by three backticks
+    ```
 
-output$leaflet <- renderLeaflet({
-  leaflet() %>%
-    addTiles()
-})
+```{r}
+# R Code goes here!!
+```
 
-observe({
-  leafletProxy("leaflet") %>%
-    clearGeoJSON() %>%
-    addGeoJSON(geojson()) %>%
-    fitBounds(lng1 = max(geojson()$geometry$coordinates[[1]]) + 5,
-              lat1 = max(geojson()$geometry$coordinates[[2]]) + 5,
-            lng2 = min(geojson()$geometry$coordinates[[1]]) - 5,
-            lat2 = min(geojson()$geometry$coordinates[[2]]) - 5)
-})
+```{r echo = FALSE}
+# This won't show up
+```
 
-leafletOutput("leaflet")
+```{r}
+# This will generate output
+summary(cars)
+```
 
 
+```{r eval = FALSE}
+# Including "eval = FALSE" means this code will not run
+summary(cars)
+```
+
+
+```{r}
+# Throw some plots in:
+library(ggplot2)
+library(gapminder)
+
+ggplot(gapminder, aes(x = gdpPercap, y = lifeExp)) +
+  geom_point(aes(color = continent))
 
 ```
 
+
+```{r}
+# Reproducible reports for when your data changes:
+library(MASS)
+library(ggplot2)
+set.seed(42)
+
+df <- data.frame(mvrnorm(500, mu = c(0,0), Sigma = matrix(c(1,0.56,0.56,1), ncol = 2),
+               empirical = TRUE))
+
+head(df)
+
+ggplot(df, aes(x = X1, y = X2)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+
+```
+
+```{r}
+set.seed(500)
+
+df <- data.frame(mvrnorm(500, mu = c(0,0), Sigma = matrix(c(1,0.56,0.56,1), ncol = 2),
+               empirical = TRUE))
+
+head(df)
+
+ggplot(df, aes(x = X1, y = X2)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
