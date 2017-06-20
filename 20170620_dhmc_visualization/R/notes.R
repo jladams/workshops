@@ -1,27 +1,31 @@
 
 # Data from: https://www.healthdata.gov/dataset/deaths-pnuemonia-and-influneza-and-all-deaths-state-and-region-national-center-health
-# Etherpad at http://bit.ly/dhmc-11-01-16
+# Etherpad at http://dartgo.org/2017-06-20-dhmc
 
+setwd("~/projects/workshops/20170620_dhmc_visualization/")
 
+# Getting Started With R
+# Variables
+new_int <- 4 # 'new_int' is a name we made up - variables can be called whatever is easy for you to remember
+new_int
+
+cos(new_int) # Finds the cosine of the value stored in new_int
+cos(4)
+
+# Functions
+new_fun <- function(x) { # Creates a function called new_fun that takes one argument, "x"
+  my_int <- x # Stores "x" as my_int
+  your_int <- my_int * 2 # Stores x * 2 as your_int
+  cat("My integer is ",my_int," and your integer is ",your_int) # Prints out a result telling us each our numbers
+}
+
+new_fun(4) # Try it out with any number
+
+# Add tidyverse
 library(tidyverse)
-library(stringr)
 
 # Read in CSV file from URL
-# df <- read_csv("http://bit.ly/dhmc-11-01-16-data")
-
-
-# Save local copy of your data to avoid re-downloading
-setwd("./20170620_dhmc_visualization/")
-# write_csv(df, "./data/deaths.csv")
-
-# df <- read_csv("./data/deaths.csv")
-
-# df <- df %>%
-#   separate(season, into = c("season_start", "season_end"), convert = TRUE) %>%
-#   mutate(week = str_sub(`MMWR Year/Week`, start = 5), year = str_sub(`MMWR Year/Week`, end = 4)) %>%
-#   select(geoid, region = Region, state = State, age, week, year, season_start, flu = `Deaths from influenza`, pneumonia = `Deaths from pneumonia`, all_deaths = `All Deaths`)
-
-# write_csv(df, "./data/deaths_cleaned.csv")
+df <- read_csv("http://dartgo.org/dhmc_flu")
 
 # Times when it's fine for data not to be perfectly tidy
 regional <- df %>%
@@ -65,7 +69,7 @@ p <- ggplot(national_seasons) +
 
 print(p)
 
-
+# A little bit of tidyr here.
 national_tidy <- national_seasons %>%
   gather(variable, value, flu:all_deaths)
 
