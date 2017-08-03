@@ -1,3 +1,5 @@
+setwd("~/projects/workshops/20170803_cleaning_visualization/")
+
 # Getting Started With R
 # Variables
 new_int <- 4 # 'new_int' is a name we made up - variables can be called whatever is easy for you to remember
@@ -20,7 +22,7 @@ install.packages("tidyverse")
 library(tidyverse)
 
 # Read in our data to use
-df <- read_csv("./20170222_cleaning/data/gapminder_wide.csv")
+df <- read_csv("./data/gapminder_wide.csv")
 
 # Subsetting data
 # select() and pipe
