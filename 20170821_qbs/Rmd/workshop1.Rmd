@@ -1,0 +1,218 @@
+---
+title: "Basic Data Manipulation in R"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 2
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Subsetting Data
+## Using Base R
+```{r}
+df <- iris
+df
+```
+
+### Three ways of accessing values from a single column
+```{r}
+df$Sepal.Length
+df[1]
+df[,1]
+```
+
+### Rows
+```{r}
+df[1,]
+```
+
+### We can get more than just one row or column
+```{r}
+df[1:10,]
+df[1:10, 1:2]
+```
+
+### We can do negative selection
+```{r}
+df[1:10, -1]
+df[1:10, -(1:3)]
+```
+
+### We can add columns
+```{r}
+df$id <- 1:nrow(df)
+
+df
+```
+
+### Let's try subsetting using a condition
+```{r}
+which(df$Species == "virginica")
+```
+
+### If we just use the numbers, it looks like this
+```{r}
+df[101:150,]
+```
+
+### Replace it with the `which()` function we used before
+```{r}
+df[which(df$Species == "virginica"), ]
+```
+
+### Save it as a new data frame
+```{r}
+test <- df[which(df$Species == "virginica"), ]
+
+test
+```
+
+### Try it numerically (name, petal width, and ID of all which have a Sepal Length less than 6)
+```{r}
+test <- df[which(df$Sepal.Length < 6), 4:6]
+
+test
+```
+
+
+## Using dplyr
+```{r message=FALSE}
+library(tidyverse)
+```
+
+### Three useful functions for subsetting
+```{r eval = FALSE}
+filter()
+select()
+mutate()
+```
+
+### A couple of other things from dplyr we'll talk about later
+```{r eval = FALSE}
+group_by()
+summarize()
+```
+
+### Getting started with dplyr
+
+#### `filter()` subsets observations (rows) based on a condition
+```{r}
+setosas <- filter(df, Species == "setosa")
+
+setosas
+```
+
+#### `select()` subsets variables (columns)
+```{r}
+setosas_sepal <- select(setosas, Sepal.Length, Species, id)
+
+setosas_sepal
+```
+
+### Combining those together with regular R syntax looks like this:
+```{r}
+setosas_sepal <- select(filter(df, Species == "setosa"), Sepal.Length, Species, id)
+
+setosas_sepal
+```
+
+### Using the Pipe
+```{r eval = FALSE}
+# Example from Hadley Wickham
+foo_foo <- little_bunny()
+
+bop(scoop_up(hop_through(foo_foo, forest), field_mouse), head)
+
+foo_foo %>%
+  hop_through(forest) %>%
+  scoop_up(field_mouse) %>%
+  bop(head)
+```
+
+### We can apply this syntax to the iris data
+```{r}
+setosas <- df %>%
+  filter(Species == "setosa")
+
+setosas
+
+setosas <- df %>%
+  filter(Species == "setosa") %>%
+  select(Sepal.Length, Species, id)
+
+setosas
+
+df2 <- iris %>%
+  mutate(id = row_number())
+
+df2
+```
+
+# Tidying data
+### Tidying the iris dataset with `gather()`
+```{r}
+tidy <- df %>%
+  gather(key = variable, value = value, Sepal.Length:Petal.Width)
+
+tidy
+```
+
+### Trying it with something a little messier
+```{r message=FALSE}
+wide <- read_csv("http://dartgo.org/qbs_iris")
+wide
+```
+
+### Using `gather()` and `separate()` to clean the data
+```{r}
+tidy <- wide %>%
+  gather(key = bad_id, value = value, setosa_1:ncol(wide))
+
+tidy
+
+tidy <- wide %>%
+  gather(key = bad_id, value = value, setosa_1:ncol(wide)) %>%
+  separate(col = bad_id, into = c("species", "id"), sep = "_")
+
+tidy
+```
+
+### Getting back to our original dataset
+```{r}
+df_normal <- wide %>%
+  gather(key = bad_id, value = value, setosa_1:ncol(wide)) %>%
+  separate(col = bad_id, into = c("species", "id"), sep = "_") %>%
+  spread(key = variable, value = value)
+
+df_normal
+```
+
+# Manipulating/Aggregating data
+### Split - Apply - Combine </br>Using `group_by()` and `summarize()`
+```{r}
+species_means <- df %>%
+  group_by(Species) %>%
+  summarize(pl = mean(Petal.Length), pw = mean(Petal.Width), sl = mean(Sepal.Length), sw = mean(Sepal.Width))
+
+species_means
+```
+
+### Using a Star Wars Example
+```{r}
+starwars
+```
+
+```{r}
+sw_heights <- starwars %>%
+  group_by(homeworld, species) %>%
+  summarize(mean_height = mean(height))
+
+sw_heights
+```
+
