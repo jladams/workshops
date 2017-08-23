@@ -1,5 +1,3 @@
-
-
 setwd("./20170821_qbs/")
 
 # Clear working environment to start
@@ -18,6 +16,9 @@ ggplot(iris, aes(x = Petal.Length, y = Petal.Width)) +
   geom_point()
 
 ggplot(iris, aes(x = Petal.Length, y = Petal.Width)) 
+
+ggplot(iris, aes(x = Petal.Length, y = Petal.Width)) +
+  geom_point()
 
 ggplot(iris, aes(x = Petal.Length, y = Petal.Width, color = Species)) +
   geom_point() 
@@ -55,18 +56,28 @@ ggplot(diamonds, aes(x = carat)) +
 
 
 # Categorical Variables
-# Bar plots
+# Bar plots, defaults to stat = "count"
+ggplot(diamonds, aes(x = cut)) +
+  geom_bar()
+
 ggplot(diamonds, aes(x = cut)) +
   geom_bar(stat = "count")
 
-# Violin plots
-ggplot(diamonds, aes(x = cut, y = price)) +
-  geom_violin()
+# Using some of the dplyr we learned Monday
+diamonds %>%
+  group_by(cut) %>%
+  summarize(count = n()) %>%
+  ggplot(aes(x = cut, y = count)) +
+  geom_col() +
+  geom_text(aes(label = count))
 
 # Boxplots
 ggplot(diamonds, aes(x = cut, y = price)) +
   geom_boxplot()
 
+# Violin plots
+ggplot(diamonds, aes(x = cut, y = price)) +
+  geom_violin()
 
 # Creating basic scatterplots
 ggplot(diamonds, aes(x = carat, y = price)) +
