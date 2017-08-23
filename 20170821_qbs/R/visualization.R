@@ -5,6 +5,10 @@ setwd("./20170821_qbs/")
 # Clear working environment to start
 rm(list = ls())
 
+
+plot(x = iris$Petal.Length, y = iris$Petal.Width, col = iris$Species)
+
+
 # Load tidyverse
 library(tidyverse)
 
@@ -14,6 +18,9 @@ ggplot(iris, aes(x = Petal.Length, y = Petal.Width)) +
   geom_point()
 
 ggplot(iris, aes(x = Petal.Length, y = Petal.Width)) 
+
+ggplot(iris, aes(x = Petal.Length, y = Petal.Width, color = Species)) +
+  geom_point() 
 
 ggplot(iris, aes(x = Petal.Length, y = Petal.Width, color = Species)) +
   geom_point() +
@@ -110,29 +117,29 @@ ggplot(diamonds, aes(x = carat, y = price)) +
 # Labels
 ggplot(diamonds, aes(x = carat, y = price)) +
   geom_point(aes(color = table)) +
-  labs(x = "Carat", y = "Price", title = "Price vs. Carat", subtitle = "Data from ggplot2", caption = "This is a caption")
+  labs(x = "Carat", y = "Price (USD)", title = "Price vs. Carat", subtitle = "Data from ggplot2", caption = "This is a caption")
 
 # Legend label, and color customization
 ggplot(diamonds, aes(x = carat, y = price)) +
   geom_point(aes(color = table)) +
-  labs(x = "Carat", y = "Price", title = "Price vs. Carat", subtitle = "Data from ggplot2", caption = "This is a caption") +
+  labs(x = "Carat", y = "Price (USD)", title = "Price vs. Carat", subtitle = "Data from ggplot2", caption = "This is a caption") +
   scale_color_continuous(guide = guide_colorbar(title = "Table of Diamond"))
 
 ggplot(diamonds, aes(x = carat, y = price)) +
   geom_point(aes(color = table)) +
-  labs(x = "Carat", y = "Price", title = "Price vs. Carat", subtitle = "Data from ggplot2", caption = "This is a caption") +
+  labs(x = "Carat", y = "Price (USD)", title = "Price vs. Carat", subtitle = "Data from ggplot2", caption = "This is a caption") +
   scale_color_continuous(low = "yellow", high = "blue", guide = guide_colorbar(title = "Table of Diamond"))
 
 # Using built-in themes
 ggplot(diamonds, aes(x = carat, y = price)) +
   geom_point(aes(color = table)) +
-  labs(x = "Carat", y = "Price", title = "Price vs. Carat", subtitle = "Data from ggplot2", caption = "This is a caption") +
+  labs(x = "Carat", y = "Price (USD)", title = "Price vs. Carat", subtitle = "Data from ggplot2", caption = "This is a caption") +
   scale_color_continuous(low = "yellow", high = "blue", guide = guide_colorbar(title = "Table of Diamond")) +
   theme_dark()
 
 ggplot(diamonds, aes(x = carat, y = price)) +
   geom_point(aes(color = table)) +
-  labs(x = "Carat", y = "Price", title = "Price vs. Carat", subtitle = "Data from ggplot2", caption = "This is a caption") +
+  labs(x = "Carat", y = "Price (USD)", title = "Price vs. Carat", subtitle = "Data from ggplot2", caption = "This is a caption") +
   scale_color_continuous(low = "yellow", high = "blue", guide = guide_colorbar(title = "Table of Diamond")) +
   theme_bw()
 
@@ -140,7 +147,7 @@ ggplot(diamonds, aes(x = carat, y = price)) +
 # Moving Legend
 ggplot(diamonds, aes(x = carat, y = price)) +
   geom_point(aes(color = table)) +
-  labs(x = "Carat", y = "Price", title = "Price vs. Carat", subtitle = "Data from ggplot2", caption = "This is a caption") +
+  labs(x = "Carat", y = "Price (USD)", title = "Price vs. Carat", subtitle = "Data from ggplot2", caption = "This is a caption") +
   scale_color_continuous(low = "yellow", high = "blue", guide = guide_colorbar(title = "Table of Diamond")) +
   theme_bw() +
   theme(legend.position = "bottom")
@@ -148,7 +155,7 @@ ggplot(diamonds, aes(x = carat, y = price)) +
 # Changing Font Family
 ggplot(diamonds, aes(x = carat, y = price)) +
   geom_point(aes(color = table)) +
-  labs(x = "Carat", y = "Price", title = "Price vs. Carat", subtitle = "Data from ggplot2", caption = "This is a caption") +
+  labs(x = "Carat", y = "Price (USD)", title = "Price vs. Carat", subtitle = "Data from ggplot2", caption = "This is a caption") +
   scale_color_continuous(low = "yellow", high = "blue", guide = guide_colorbar(title = "Table of Diamond")) +
   theme_bw() +
   theme(legend.position = "bottom", text = element_text(family = "mono"))
@@ -156,7 +163,7 @@ ggplot(diamonds, aes(x = carat, y = price)) +
 # Changing font for specific elements
 ggplot(diamonds, aes(x = carat, y = price)) +
   geom_point(aes(color = table)) +
-  labs(x = "Carat", y = "Price", title = "Price vs. Carat", subtitle = "Data from ggplot2", caption = "This is a caption") +
+  labs(x = "Carat", y = "Price (USD)", title = "Price vs. Carat", subtitle = "Data from ggplot2", caption = "This is a caption") +
   scale_color_continuous(low = "yellow", high = "blue", guide = guide_colorbar(title = "Table of Diamond")) +
   theme_bw() +
   theme(legend.position = "bottom", text = element_text(family = "mono"), plot.title = element_text(family = "sans"))
@@ -164,7 +171,7 @@ ggplot(diamonds, aes(x = carat, y = price)) +
 # Facets / Small Multiples
 ggplot(diamonds, aes(x = carat, y = price)) +
   geom_point(aes(color = table)) +
-  labs(x = "Carat", y = "Price", title = "Price vs. Carat", subtitle = "Data from ggplot2", caption = "This is a caption") +
+  labs(x = "Carat", y = "Price (USD)", title = "Price vs. Carat", subtitle = "Data from ggplot2", caption = "This is a caption") +
   scale_color_continuous(low = "yellow", high = "blue", guide = guide_colorbar(title = "Table of Diamond")) +
   theme_bw() +
   theme(legend.position = "bottom", text = element_text(family = "mono"), plot.title = element_text(family = "sans")) +
@@ -173,7 +180,7 @@ ggplot(diamonds, aes(x = carat, y = price)) +
 # Facet in specific directions
 ggplot(diamonds, aes(x = carat, y = price)) +
   geom_point(aes(color = table)) +
-  labs(x = "Carat", y = "Price", title = "Price vs. Carat", subtitle = "Data from ggplot2", caption = "This is a caption") +
+  labs(x = "Carat", y = "Price (USD)", title = "Price vs. Carat", subtitle = "Data from ggplot2", caption = "This is a caption") +
   scale_color_continuous(low = "yellow", high = "blue", guide = guide_colorbar(title = "Table of Diamond")) +
   theme_bw() +
   theme(legend.position = "bottom", text = element_text(family = "mono"), plot.title = element_text(family = "sans")) +
@@ -181,7 +188,7 @@ ggplot(diamonds, aes(x = carat, y = price)) +
 
 ggplot(diamonds, aes(x = carat, y = price)) +
   geom_point(aes(color = table)) +
-  labs(x = "Carat", y = "Price", title = "Price vs. Carat", subtitle = "Data from ggplot2", caption = "This is a caption") +
+  labs(x = "Carat", y = "Price (USD)", title = "Price vs. Carat", subtitle = "Data from ggplot2", caption = "This is a caption") +
   scale_color_continuous(low = "yellow", high = "blue", guide = guide_colorbar(title = "Table of Diamond")) +
   theme_bw() +
   theme(legend.position = "bottom", text = element_text(family = "mono"), plot.title = element_text(family = "sans")) +
@@ -190,7 +197,7 @@ ggplot(diamonds, aes(x = carat, y = price)) +
 # Facet in both directions
 ggplot(diamonds, aes(x = carat, y = price)) +
   geom_point(aes(color = table)) +
-  labs(x = "Carat", y = "Price", title = "Price vs. Carat", subtitle = "Data from ggplot2", caption = "This is a caption") +
+  labs(x = "Carat", y = "Price (USD)", title = "Price vs. Carat", subtitle = "Data from ggplot2", caption = "This is a caption") +
   scale_color_continuous(low = "yellow", high = "blue", guide = guide_colorbar(title = "Table of Diamond")) +
   theme_bw() +
   theme(legend.position = "bottom", text = element_text(family = "mono"), plot.title = element_text(family = "sans")) +
@@ -199,7 +206,7 @@ ggplot(diamonds, aes(x = carat, y = price)) +
 # Saving
 p <- ggplot(diamonds, aes(x = carat, y = price)) +
   geom_point(aes(color = table)) +
-  labs(x = "Carat", y = "Price", title = "Price vs. Carat", subtitle = "Data from ggplot2", caption = "This is a caption") +
+  labs(x = "Carat", y = "Price (USD)", title = "Price vs. Carat", subtitle = "Data from ggplot2", caption = "This is a caption") +
   scale_color_continuous(low = "yellow", high = "blue", guide = guide_colorbar(title = "Table of Diamond")) +
   theme_bw() +
   theme(legend.position = "bottom", text = element_text(family = "mono"), plot.title = element_text(family = "sans")) +
